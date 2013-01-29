@@ -1,0 +1,54 @@
+<div class="g_6 contents_header">
+					<h3 class="i_16_dashboard tab_label">Login </h3>
+				</div>
+				
+
+				<div class="g_12 separator"></div>
+
+
+				<div class="g_6">
+					<div class="widget_header">
+						<h4 class="widget_header_title wwIcon i_16_valid">Login</h4>
+					</div>
+					<div class="widget_contents noPadding">
+						<%= form_for(resource, :as => resource_name, :url => user_session_path) do |f| %>
+					 	 <%= devise_error_messages! %>
+							
+							<div class="line_grid">
+								<div class="g_3"><%= f.label :email %></div>
+								<div class="g_9">
+									<%= f.email_field :email %>
+									<div class="field_notice">Try typing a wrong email, without @ for ex ..</div>
+								</div>
+							</div>
+							
+							<div class="line_grid">
+								<div class="g_3"><%= f.label :password %></div>
+								<div class="g_9">
+									<%= f.password_field :password %>
+									<div class="field_notice">a-z-A-Z-0-9</div>
+								</div>
+							</div>
+							
+							<% if devise_mapping.rememberable? -%>
+							<div class="line_grid">
+								<div class="g_3"> <%= f.label :remember_me %></div>
+								<div class="g_9">
+									<%= f.check_box :remember_me %>
+								</div>
+							</div>
+ 							 <% end -%>
+							
+							<div class="line_grid">
+								<div class="g_3"><span class="label">Submit</span></div>
+								<div class="g_9">
+									<%= f.submit "Login", :class=> "submitIt simple_buttons" %>
+								</div>
+							</div>
+						<% end %>
+						<%= render "devise/shared/links" %>
+					</div>
+				</div>
+
+
+				

@@ -1,0 +1,43 @@
+<script type="text/javascript">
+$(function() {
+    makeTabActive("inbox");
+    
+	$( "#tabletabs" ).tabs();
+    
+    });
+    
+    
+
+</script>
+
+<!-- 
+	<a href="messages/new" class="simple_buttons">Compose</a>
+-->
+
+
+<div class="g_12">
+					
+					<h2>Listing my mailboxes</h2>
+
+<%= form_tag delete_selected_messages_path(@user, :method => :post) do %>
+	
+
+<div id="tabletabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+					<div class="widget_header wwOptions">
+						<h4 class="widget_header_title wwIcon i_16_tabs">Messages</h4>
+						<ul class="w_Tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+							<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a title="Tab 1" href="#tabletabs-1">Inbox</a></li>
+							<li class="ui-state-default ui-corner-top"><a title="Tab 2" href="#tabletabs-2">Sent</a></li>
+						</ul>
+					</div>
+					<div class="widget_contents noPadding">
+						
+						<%= render :partial => "messages/inbox" %>
+						<%= render :partial => "sent" %>
+						
+					</div>
+</div>     </div>
+
+
+<% end %>
+

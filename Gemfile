@@ -1,0 +1,58 @@
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.9'
+
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+gem 'sqlite3'
+#gem 'mysql2'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
+
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+gem 'devise'
+gem "cancan"
+gem 'rabl'
+gem 'oj'
+gem 'safe_attributes'
+#gem "ruby-debug-ide"
+#gem "ruby-debug19", :require => 'ruby-debug'
+gem 'linecache19', :git => 'https://github.com/mark-moseley/linecache.git' 
+gem 'ruby-debug-base19', :git => 'https://github.com/mark-moseley/ruby-debug.git'
+
+
+# QR CODE
+gem 'rqrcode-rails3'
+gem 'mini_magick'
+
+#GEOLOCATION
+gem "geocoder"
+
+# MESSAGING
+gem 'simple-private-messages', '0.0.0', :git => 'git://github.com/jongilbraith/simple-private-messages.git'
+
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'debugger'

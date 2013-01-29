@@ -1,0 +1,33 @@
+<%= form_for(@stamp) do |f| %>
+  <% if @stamp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stamp.errors.count, "error") %> prohibited this stamp from being saved:</h2>
+
+      <ul>
+      <% @stamp.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :expires_at %><br />
+    <%= f.date_select :expires_at %>
+  </div>
+  <div class="field">
+    <%= f.label :valid %><br />
+    <%= f.check_box :valid %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

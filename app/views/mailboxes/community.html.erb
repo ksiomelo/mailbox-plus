@@ -1,0 +1,138 @@
+
+<% content_for :head do %>
+  
+<script type="text/javascript">
+$(function() {
+    makeTabActive("community");
+    //initialize();
+    
+    });
+</script>
+
+<!--
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwOx801Flp99VY2MhGlhi937dCqV0MIyQ&sensor=false">
+ </script>
+-->
+
+
+<script type="text/javascript">
+
+  var map;
+  
+  function initialize() {
+    var mapOptions = {
+	    zoom: 12,
+	    center: new google.maps.LatLng(48.8550, 2.3470),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	  }
+	  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	  
+	  // reset peoples name
+	  $("#people").html("");
+	  
+	}
+	
+	
+	var loaded = false;
+	function loadScript() {
+		if (loaded) { getNearby(); return; }
+	  var script = document.createElement("script");
+	  script.type = "text/javascript";
+	  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDwOx801Flp99VY2MhGlhi937dCqV0MIyQ&sensor=false&callback=getNearby";
+	  document.body.appendChild(script);
+	  loaded = true;
+	}
+	
+	
+	
+	
+	function getNearby(){
+		
+		if (!loaded) { loadScript(); return } // load map before if not loaded
+		
+		initialize(); // initialize, or re-
+		
+		$("#people-list").show();
+		
+		var mailboxId = $("#mailbox-select").val();
+		var distance = $("#distance-input").val();
+		
+		$.getJSON('/mailboxes/'+mailboxId+'/nearby?distance='+distance+'&format=json',function(data){
+			
+			
+			 if (data.mailboxes) {
+			 	$("#count-results").text("("+data.mailboxes.length+")");
+			 	
+		         for(var i=0;i<data.mailboxes.length;i++){
+		         	
+		         	var ownerName = data.mailboxes[i].mailbox.user.name;
+		            var myLatlng = new google.maps.LatLng(data.mailboxes[i].mailbox.latitude,data.mailboxes[i].mailbox.longitude);
+		            
+		            var marker = new google.maps.Marker({
+					      position: myLatlng,
+					      map: map,
+					      title:ownerName
+					});
+					
+					
+					// append person's name to the list
+					$("#people").append("<li>"+ownerName+"</li>")
+					
+		        }
+	      } else $("#count-results").text("(0)");
+	        
+	         var centerSearch = new google.maps.LatLng(data.latitude, data.longitude);
+			
+			 var circle = new google.maps.Circle({
+	           map: map,
+	           radius: data.radius*1000, // 3000 km
+	           center: centerSearch,
+	           strokeColor: "#0000FF",
+		       strokeOpacity: 0.6,
+		       strokeWeight: 2,
+		       fillColor: "#0000FF",
+		       fillOpacity: 0.20,
+	         });
+
+	        
+    	});
+	}
+	
+	
+</script>
+
+
+<% end %>
+
+
+
+
+				<!-- options -->
+				<div class="g_12">
+					
+					<h1>Nearby mailboxes <span id="count-results"></span></h1>
+					
+						<div style="float: left;">
+							<label> Select your mailbox: </label>
+							<select id="mailbox-select">
+							<%= options_from_collection_for_select(@mailboxes, :id, :name) %>
+							</select>
+						</div>
+						
+						<div style="float: left; margin-left: 20px;">
+							<label> Radius: </label>
+							<input type="text" value="1" id="distance-input" name="distance-input" maxlength="3" style="width: 30px;"/>Km
+							<button onclick="getNearby();">OK</button>
+						</div>
+					
+				</div>
+				
+				
+				
+				<div class="g_12" id="map_canvas" style="height:500px"></div>
+
+				<div id="people-list" class="g_12" style="display:none;">
+					<h1>Nearby people</h1>
+					<ul id="people" style="display: inline; list-style-type: none; padding-right: 20px;"></ul>
+				</div>

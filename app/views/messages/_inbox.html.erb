@@ -1,0 +1,36 @@
+<table id="tabletabs-2" class="tables ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+	<tr>
+		<th>Del?</th>
+		<th>Sent</th>
+		<th>Sender</th>
+		<th>Sent</th>
+	</tr>
+	<% if @messages_received.size == 0 %>
+		<tr>
+			<td colspan="4">
+				No messages
+			</td>
+		</tr>
+	<% else %>
+		<% for message in @messages_received %>
+			<tr>
+				<td><%= check_box_tag "delete[]", message.id %></td>
+				<td>
+					<% if message.message_read? %>
+					  <%= link_to h(message.subject), message_path(@user, message) %>
+					<% else %>
+					  <%= link_to "#{h(message.subject)} (unread)", message_path(@user, message) %>
+					<% end %>
+				</td>
+				<td><%= h(message.sender.email) %></td>
+		    <td><%=h message.created_at.to_s(:long) %></td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan="4">
+				<%= submit_tag "Delete" %>
+			</td>
+		</tr>
+	<% end %>
+</table>
+

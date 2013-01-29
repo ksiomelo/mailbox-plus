@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mailbox+ Sample Application</title>
+	<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="../Javascript/Flot/excanvas.js"></script>
+	<![endif]-->
+	<!-- The Fonts -->
+	
+	<!-- The Main CSS File -->
+	
+	<!-- jQuery -->
+	
+	<%= javascript_include_tag "jquery-1.7.2.min.js", "jquery-ui-1.10.0.custom.min.js", "rails.js"%>
+	
+
+	<style type="text/css">  .JColResizer{table-layout:fixed;} .JColResizer td, .JColResizer th{overflow:hidden;}  .JCLRgrips{ height:0px; position:relative;} .JCLRgrip{margin-left:-5px; position:absolute; z-index:5; } .JCLRgrip .JColResizer{position:absolute;background-color:red;filter:alpha(opacity=1);opacity:0;width:10px;height:100%;top:0px} .JCLRLastGrip{position:absolute; width:1px; } .JCLRgripDrag{ border-left:0 dotted black;	}
+	</style>
+	
+	<script type="text/javascript">
+		function makeTabActive(tabId){
+		     // Handler for .ready() called.
+		     $(".active_tab").removeClass("active_tab");
+		     $("#"+tabId+"-tab").addClass("active_tab");
+		}
+		
+		
+
+	</script>
+	
+	
+	<%= stylesheet_link_tag "index.css", "all"-%>
+	
+	<%= yield :head %>
+
+
+<%= csrf_meta_tags %>
+</head>
+<body>
+	
+	<!-- Top Panel -->
+	<div class="top_panel">
+		<div class="wrapper">
+			<div class="user">
+				<%=image_tag "user_avatar.png", :class=> "user_avatar"%>
+				<span class="label"><%= current_user.email %></span>
+				<span class="label">| <%= link_to "logout", destroy_user_session_path, :method => :delete%></span>
+						
+				
+			</div>
+			<div class="top_links">
+				<ul>
+					
+					<li class="i_22_settings">
+						<%= link_to raw("<span class=\"label\">Settings</span>"), edit_user_registration_path(current_user)%> 
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+    <div class="g_12"><div class="alert iDialog"><%= alert %></div></div>
+    <div class="g_12"><div class="info iDialog notice"><%= notice %></div></div>
+		
+
+	<header class="main_header">
+		<div class="wrapper">
+			<div class="logo">
+				<a href="#" title="MailboxPlus Home">
+					<%= image_tag "mailboxplus_logo.png" %>
+				</a>
+			</div>
+			
+			<%- if current_user.is? :postman %>
+			<nav class="top_buttons">
+				<ul>
+					<li class="big_button">
+						<div class="out_border">
+							<div class="button_wrapper">
+								<div class="in_border">
+									<a href="#" title="Analytics" class="the_button">
+										<span class="i_32_statistic"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="big_button">
+						<div class="big_count">
+							7
+						</div>
+						<div class="out_border">
+							<div class="button_wrapper">
+								<div class="in_border">
+									<a href="#" title="Support" class="the_button">
+										<span class="i_32_support"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="big_button">
+						<div class="out_border">
+							<div class="button_wrapper">
+								<div class="in_border">
+									<a href="#" title="Delivery" class="the_button">
+										<span class="i_32_delivery"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="big_button">
+						<div class="out_border">
+							<div class="button_wrapper">
+								<div class="in_border">
+									<a href="#" title="Earning" class="the_button">
+										<span class="i_32_dollar"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</nav>
+			<%- end %>
+		</div>
+	</header>
+
+
+	<div class="wrapper contents_wrapper">
+		
+		<aside class="sidebar">
+			<ul class="tab_nav">
+				
+				
+				<%- if current_user.is? :admin %>
+				<li id="outbox-tab" class="i_32_inbox">
+					<%= link_to raw("<span class=\"tab_label\">Stamps</span><span class=\"tab_info\">Manage stamps</span>"), stamps_path, :title=>"Buy stamps" %>
+				</li>
+				<% else %>
+				<li id="inbox-tab" class="active_tab i_32_inbox">
+					<%= link_to raw("<span class=\"tab_label\">Inbox</span><span class=\"small_count\" style=\"float:left; \">3</span><span class=\"tab_info\">Your messages</span>"), messages_path, :title=>"Your messages" %>
+				</li>
+				<li id="outbox-tab" class="i_32_inbox">
+					<%= link_to raw("<span class=\"tab_label\">Stamps</span><span class=\"tab_info\">Buy stamps</span>"), stamps_path, :title=>"Buy stamps" %>
+				</li>
+				
+				<li id="mailbox-tab" class="i_32_inbox">
+					<%= link_to raw("<span class=\"tab_label\">Mailboxes</span><span class=\"tab_info\">Manage</span>"), mailboxes_path, :title=>"Manage mailboxes" %>
+				</li>
+				
+				<li id="community-tab" class="i_32_ui">
+					<%= link_to raw("<span class=\"tab_label\">Community</span><span class=\"tab_info\">Neighborhood</span>"), community_mailboxes_path, :title=>"Community" %>
+				</li>
+				
+				<%end%>
+				<!--
+				<li id="apps-tab" class="i_32_tables">
+					<a href="http://demonstration.olympe.in/Template/HTML/tables.html" title="Some Rows">
+						<span class="tab_label">Apps</span>
+						<span class="tab_info">Store</span>
+					</a>
+				</li>
+				-->
+				
+			</ul>
+		</aside>
+
+		<div class="contents">
+			<div class="grid_wrapper">
+
+				<%= yield %>
+				
+			</div>
+		</div>
+
+	</div>
+
+	<footer>
+		<div class="wrapper">
+			<span class="copyright">
+				COPYRIGHT © 2013 Cassio Melo | Original template by Mahieddine Abd-kader
+			</span>
+		</div>
+	</footer>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mailbox+ Sample Application</title>
+	<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="../Javascript/Flot/excanvas.js"></script>
+	<![endif]-->
+	<!-- The Fonts -->
+	
+	<!-- The Main CSS File -->
+	
+	<!-- jQuery -->
+	
+	<%= javascript_include_tag "jquery-1.7.2.min.js", "jquery-ui-1.10.0.custom.min.js", "rails.js"%>
+	
+
+	<style type="text/css">  .JColResizer{table-layout:fixed;} .JColResizer td, .JColResizer th{overflow:hidden;}  .JCLRgrips{ height:0px; position:relative;} .JCLRgrip{margin-left:-5px; position:absolute; z-index:5; } .JCLRgrip .JColResizer{position:absolute;background-color:red;filter:alpha(opacity=1);opacity:0;width:10px;height:100%;top:0px} .JCLRLastGrip{position:absolute; width:1px; } .JCLRgripDrag{ border-left:0 dotted black;	}
+	</style>
+	
+	<script type="text/javascript">
+		function makeTabActive(tabId){
+		     // Handler for .ready() called.
+		     $(".active_tab").removeClass("active_tab");
+		     $("#"+tabId+"-tab").addClass("active_tab");
+		}
+		
+		
+
+	</script>
+	
+	
+	<%= stylesheet_link_tag "index.css", "all"-%>
+	
+	<%= yield :head %>
+
+
+<%= csrf_meta_tags %>
+</head>
+<body>
+	
+	
+ <div class="g_12"><div class="alert iDialog"><%= alert %></div></div>
+    <div class="g_12"><div class="info iDialog notice"><%= notice %></div></div>
+		
+
+
+ <div class="g_12"  style="text-align: center;">
+
+				<a href="#" title="MailboxPlus Home">
+					<%= image_tag "mailboxplus_logo.png" %>
+				</a>
+ </div>
+ 	
+	<div class="wrapper contents_wrapper" style="overflow: none;">
+		
+		<div class="contents">
+			<div class="grid_wrapper">
+
+				<%= yield %>
+				
+			</div>
+		</div>
+
+	</div>
+
+	<footer>
+		<div class="wrapper">
+			<span class="copyright">
+				COPYRIGHT © 2013 Cassio Melo | Template by Mahieddine Abd-kader
+			</span>
+		</div>
+	</footer>
+

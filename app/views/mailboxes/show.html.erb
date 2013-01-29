@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @mailbox.name %>
+</p>
+
+<p>
+  <b>Qrcode:</b>
+  <%= image_tag "../"+@mailbox.qrcode %>
+</p>
+
+
+<%= link_to 'Back', mailboxes_path %>

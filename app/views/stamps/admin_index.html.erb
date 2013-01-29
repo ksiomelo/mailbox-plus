@@ -1,0 +1,64 @@
+<script type="text/javascript">
+$(function() {
+    makeTabActive("outbox");
+    });
+
+</script>
+
+
+
+
+<div class="g_12 contents_header">
+	<form action ="/stamps/batch_generate" method="GET">
+	Generate: <input type="text" value="100" name="national_qte" maxlength="4" style="width: 40px;"/> National and <input type="text" value="100" style="width: 40px;"  maxlength="4" name="international_qte"/> International stamps <input type="submit" value="OK"/>
+	</form>
+</div>
+
+
+
+<form action="/stamps/batch_delete" action="get">
+<!-- Charts -->
+<div class="g_12">
+	
+	
+					
+						
+	<h2>Listing all stamps</h2>
+	
+	<input type="submit" value="Delete selected" />
+	
+	<table id="tabletabs-2" class="tables ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+	  <tr>
+	  	<th></th>
+	    <th>Code</th>
+	    <th>Type</th>
+	    <th>User</th>
+	    <th>Expires at</th>
+	    <th>Valid</th>
+	    
+	    <th></th>
+	  </tr>
+	
+	<% @stamps.each do |stamp| %>
+	  <tr>
+	  	<td><input type="checkbox" name="stamp_ids[]" value="<%=stamp.id%>"></td>
+	    <td style="color: <%= (stamp.stamp_type == "international") ? "#BB5500": "#5500BB"%>"><%= stamp.code %></td>
+	    <td><%= stamp.stamp_type %></td>
+	    <td><%= (stamp.user) ? stamp.user.email : "(unassigned)" %></td>
+	    <td><%= stamp.expires_at %></td>
+	    <td><%= stamp.valid %></td>
+	   
+	  </tr>
+	<% end %>
+	</table>
+	
+	<br />
+					
+</div>
+
+
+	<input type="submit" value="Delete selected" />
+</form>
+				
+
+
