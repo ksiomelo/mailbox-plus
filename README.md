@@ -3,6 +3,22 @@
 
 This is part of the series "Quick create a fully-fledged web application and an Android client" : http://tecnotrix.wordpress.com/2013/01/23/quick-create-a-web-application-and-an-android-client-mailbox-example-part-i
 
+<h2>Setup & Run</h2>
+
+bundle install
+
+rake db:migrate
+rake bootstrap:init
+
+rails s
+
+Then register to create an account. 
+
+Super user credentials:
+
+login: admin@mailboxplus.com
+password: administrator 
+
 <h2>License (GPL v3)</h2>
 
 For commercial uses, contact Cassio Melo <melo.cassio@gmail.com>
